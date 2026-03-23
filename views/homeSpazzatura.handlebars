@@ -1,0 +1,93 @@
+<div<div id="oggi-container" class="card mb-5 shadow-sm border-0" style="background-color: #fdfdfd; border-radius: 20px; border: 1px solid #eee !important;">
+    <div class="card-body text-center" style="padding: 60px 20px;"> <h2 class="text-muted" style="font-weight: 300; margin-bottom: 50px; letter-spacing: 1px;">
+            COSA BUTTIAMO OGGI?
+        </h2>
+        
+        {{#if oggiInfo}}
+            <div class="d-flex justify-content-center flex-wrap" style="gap: 60px;"> 
+                {{#each oggiInfo.elementi}}
+                    <div class="element-box" style="display: flex; flex-direction: column; align-items: center;">
+                        
+                        <div style="font-size: 6.5rem; line-height: 1; margin-bottom: 25px; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));">
+                            {{this.icona}}
+                        </div>
+                        
+                        <div style="font-size: 2rem; font-weight: 800; color: {{this.colore}}; text-transform: uppercase; letter-spacing: 2px;">
+                            {{this.name}}
+                        </div>
+                        
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+            <div class="py-5">
+                <span style="font-size: 5rem; display: block; margin-bottom: 20px;">🎉</span>
+                <h3 class="display-5" style="color: #28a745; font-weight: bold;">OGGI VACANZA!</h3>
+                <p class="text-muted fs-5">Nessun ritiro previsto per oggi.</p>
+            </div>
+        {{/if}}
+    </div>
+</div>
+
+<div class="container mt-5" style="max-width: 2000px;"> <div id="oggi-container" class="card mb-5 shadow-sm border-0" ...>
+        </div>
+
+    <div class="px-2"> <h4 class="text-secondary mb-4">IL CALENDARIO COMPLETO</h4>
+    </div>
+
+    <div class="card shadow-sm border-0" style="border-radius: 15px; overflow: hidden;">
+        <table class="table mb-0">
+        <thead class="table-light">
+            <tr>
+                <th style="padding: 20px; font-size: 1.1rem">Data</th>
+                <th style="padding: 20px; font-size: 1.1rem">Cosa esporre</th>
+                <th style="padding: 20px; font-size: 1.1rem; color: #adb5bd; text-align: center;">ID (DB)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each giorni}}
+            <tr>
+                <td class="data-leggibile" data-value="{{this.giorno}}" style="padding: 25px 20px; font-size: 1.2rem; font-weight: bold; vertical-align: middle;">
+                    </td>
+
+                <td style="padding: 25px 20px; vertical-align: middle;">
+                    {{#each this.elementi}}
+                        <span style="color: {{this.colore}}; font-size: 1.2rem; margin-right: 15px; display: inline-block;">
+                            {{this.icona}} <strong>{{this.name}}</strong>
+                        </span>
+                    {{/each}}
+                </td>
+
+                <td style="padding: 25px 20px; vertical-align: middle; text-align: center; color: #adb5bd; font-family: monospace;">
+                    {{this.giorno}}
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+	</div>
+</div>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		const mesi = [
+		  "Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno",
+		  "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"
+		];
+
+		const celleData = document.querySelectorAll('.data-leggibile');
+		
+		celleData.forEach(cella => {
+		  const valore = cella.getAttribute('data-value');
+		  if (valore) {
+			const s = valore.toString();
+			const meseNum = s.length === 3 ? s.substring(0, 1) : s.substring(0, 2);
+			const giornoNum = s.length === 3 ? s.substring(1) : s.substring(2);
+			const nomeMese = mesi[parseInt(meseNum) - 1];
+			
+			cella.innerHTML = `${giornoNum} <span style="font-weight: 500; font-size: 1.0em;">${nomeMese}</span>`;
+		  }
+		});
+	});
+    
+</script>

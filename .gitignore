@@ -1,0 +1,27 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Security (Cruciale per dotenv e mongoose)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logging (Morgan/npm)
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Docker
+.dockerignore
+# Se usi volumi locali per MongoDB, aggiungi la cartella dati:
+# data/
+
+# Editor e OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

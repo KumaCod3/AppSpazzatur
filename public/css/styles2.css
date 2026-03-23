@@ -1,0 +1,165 @@
+.cs-footer { 
+	text-align: center;  
+	font-size: 10px 
+}
+
+.cols-red {
+	color: red !important;
+}
+
+.cols-black {
+	color: black !important;
+}
+
+.container-custom {
+	width: 70%;
+	max-width: 2400px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+.full-height-box {
+	height: 98%;
+	display: flex;
+	flex-direction: column;
+}
+
+.sticky-top {
+	top: 20px;
+	z-index: 1000;
+}
+
+.sticky-top-ing {
+	top: 150px;
+	z-index: 1000;
+}
+
+hr.hrB {
+	width: 100%;
+	opacity: 1;
+	border: 0;
+	border-top: 3px solid #17a2b8;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.draggable-recipe, .badge-recipe {
+	cursor: grab;
+	display: inline-block;
+	transition: transform 0.2s;
+	height: 40px;
+	overflow: hidden;
+}
+
+.draggable-recipe:active, .badge-recipe:active {
+	cursor: grabbing;
+}
+
+.dragging {
+	opacity: 0.5;
+	transform: scale(0.9);
+}
+
+.drop-zone {
+	border: 2 dashed #ccc;
+	min-height: 40px;
+	vertical-align: middle !important;
+	transition: background-color 0.3s;
+}
+
+.recipe-slot {
+	min-height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.drop-zone.drag-over, .drop-zone[ondragover], drag-over {
+	background-color: #e2f3ff !important;
+	border: 2px #000000 !important;
+}
+
+.ricetta-cena {
+	background-color: #bface9;
+}
+
+.ricetta-pranzo {
+	background-color: #f2c6ed;
+}
+
+.ricetta-unisex {
+	background-color: #9ce8c5;
+}
+
+.intesta {
+	background-color: #a8e2e2;
+}
+
+.ricetta-prova {
+	color: #e4e3a6;
+	font-weight: bold;
+	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
+	background-blend-mode: multiply;
+}
+
+.counter {
+	color: rgba(0, 0, 0, 0.5);
+}
+
+#sidecar {
+	flex-grow: 1;
+	overflow-y: auto;
+	min-height: 200px;
+	border: 1px dashed #ccc;
+	border-radius: 4px;
+	padding: 10px;
+}
+
+.badge-recipe-container {
+	min-height: 45px;
+	border-radius: 8px;
+	overflow: hidden; /* Keeps the handle and link inside rounded corners */
+}
+.drag-handle {
+	background: rgba(0, 0, 0, 0.1); /* Slightly darker left side */
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+	display: flex;
+	align-items: center;
+	transition: background 0.2s;
+}
+
+	.drag-handle:hover {
+		background: rgba(0, 0, 0, 0.2);
+	}
+
+.badge-link:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: inherit;
+}
+/* Impedisce al link di interferire con il drag quando clicchi sul manico */
+.badge-recipe-container[draggable="true"] {
+	user-select: none;
+}
+
+/* Effetto hover sul link per farlo sembrare cliccabile */
+.badge-text-link:hover {
+	background-color: rgba(255, 255, 255, 0.2);
+	color: inherit;
+}
+
+/* Cambia cursore quando afferri il manico */
+.drag-handle:active {
+	cursor: grabbing;
+}
+/* Impedisce il ridimensionamento orizzontale che potrebbe rompere il layout */
+#note-display {
+	resize: vertical;
+	min-height: 100px;
+}
+
+#note-display {
+	overflow: hidden; /* Nasconde la scrollbar permanente */
+	resize: none; /* Opzionale: toglie l'angolino per il ridimensionamento manuale */
+}

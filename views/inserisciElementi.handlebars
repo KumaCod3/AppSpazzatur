@@ -1,0 +1,114 @@
+<div class="container mt-4">
+    <h2>Gestione Elementi</h2>
+    <hr>
+
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <h5 class="card-title">Aggiungi Nuovo Elemento</h5>
+            <form id="formNuovoElemento" class="row g-3">
+                <div class="col-md-4">
+                    <input type="text" id="nome" class="form-control" placeholder="Nome (es: Lavoro)" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="icona" class="form-control" placeholder="Icona (emoji)" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="color" id="colore" class="form-control form-control-color" value="#007bff">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success w-100">Salva</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Icona</th>
+                    <th>Nome</th>
+                    <th>Colore</th>
+                    <th class="text-end">Azioni</th>
+                </tr>
+            </thead>
+            <tbody id="tabellaCorpo">
+                {{#each elementi}}
+                <tr id="row-{{this._id}}">
+                    <td style="font-size: 1.5rem;">{{this.icona}}</td>
+                    <td><strong>{{this.name}}</strong></td>
+                    <td>
+                        <span class="badge" style="background-color: {{this.colore}};">{{this.colore}}</span>
+                    </td>
+                    <td class="text-end">
+                        <button class="btn btn-outline-danger btn-sm" onclick="eliminaElemento('{{this._id}}')">
+                            Elimina
+                        </button>
+                    </td>
+                </tr>
+                {{else}}
+                <tr id="messaggio-vuoto">
+                    <td colspan="4" class="text-center text-muted">Nessun elemento presente nel database.</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Funzione per rigenerare le righe della tabella
+    function renderizzaTabella(listaElementi) {
+        const corpo = document.getElementById('tabellaCorpo');
+        if (listaElementi.length === 0) {
+            corpo.innerHTML = '<tr><td colspan="4" class="text-center text-muted">Nessun elemento presente.</td></tr>';
+            return;
+        }
+
+        corpo.innerHTML = listaElementi.map(el => `
+            <tr id="row-${el._id}">
+                <td style="font-size: 1.5rem;">${el.icona}</td>
+                <td><strong>${el.name}</strong></td>
+                <td><span class="badge" style="background-color: ${el.colore};">${el.colore}</span></td>
+                <td class="text-end">
+                    <button class="btn btn-outline-danger btn-sm" onclick="eliminaElemento('${el._id}')">Elimina</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    // Gestione Inserimento
+    document.getElementById('formNuovoElemento').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const dati = {
+            nome: document.getElementById('nome').value,
+            icona: document.getElementById('icona').value,
+            colore: document.getElementById('colore').value
+        };
+
+        try {
+            const res = await fetch('/NEWelemento', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dati)
+            });
+            const aggiornati = await res.json();
+            renderizzaTabella(aggiornati);
+            e.target.reset();
+        } catch (err) { alert("Errore nel salvataggio"); }
+    });
+
+    // Gestione Eliminazione
+    async function eliminaElemento(id) {
+        if (!confirm("Eliminare l'elemento?")) return;
+        try {
+            const res = await fetch('/DELETEelemento', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ identificatore: id })
+            });
+            const aggiornati = await res.json();
+            renderizzaTabella(aggiornati);
+        } catch (err) { alert("Errore nell'eliminazione"); }
+    }
+</script>
