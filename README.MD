@@ -30,7 +30,7 @@ Before running this project, ensure you have installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone https:```github.com/KumaCod3/AppSpazzatur.git
+git clone https://github.com/KumaCod3/AppSpazzatur.git
 cd AppSpazzatur
 ```
 
@@ -57,7 +57,7 @@ MONGO_URI=your_mongodb_connection_string
 ## 🗄️ Database Setup
 
 ### Using MongoDB Atlas (Cloud)
-1. Create a cluster on [MongoDB Atlas](https:```www.mongodb.com/cloud/atlas).
+1. Create a cluster on [MongoDB Atlas](https://www.mongodb.com/cloud/atlas).
 2. Obtain your connection string (SRV).
 3. Paste the string into your `.env` file as the `MONGO_URI`.
 
@@ -65,7 +65,7 @@ MONGO_URI=your_mongodb_connection_string
 1. Ensure your local MongoDB service is running.
 2. Use your local URI in the `.env` file:
 ```env
-MONGO_URI=mongodb:```localhost:27017/app_spazzatura
+MONGO_URI=mongodb://localhost:27017/app_spazzatura
 ```
 
 ---
@@ -78,7 +78,7 @@ Once the environment and database are ready, you can start the server:
 node index.js
 ```
 
-The application will be available at: **`http:```localhost:PORT`** (where `PORT` is the value you specified in your `.env` file).
+The application will be available at: **`http://localhost:PORT`** (where `PORT` is the value you specified in your `.env` file).
 
 ---
 
@@ -108,4 +108,4 @@ The application will be available at: **`http:```localhost:PORT`** (where `PORT`
 * **Mongoose**: ODM (Object Data Modeling) for MongoDB.
 
 ---
-*Maintained by [KumaCod3](https:```github.com/KumaCod3)*
+*Maintained by [KumaCod3](https://github.com/KumaCod3)*
