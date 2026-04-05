@@ -30,8 +30,8 @@ Before running this project, ensure you have installed:
 
 ### 1. Clone the Repository
 ```bash
-git clone https:```github.com/KumaCod3/AppSpazzatura.git
-cd AppSpazzatura
+git clone https:```github.com/KumaCod3/AppSpazzatur.git
+cd AppSpazzatur
 ```
 
 ### 2. Install Dependencies
@@ -75,12 +75,7 @@ Once the environment and database are ready, you can start the server:
 
 **Production mode:**
 ```bash
-npm start
-```
-
-**Development mode:**
-```bash
-npm run dev
+node index.js
 ```
 
 The application will be available at: **`http:```localhost:PORT`** (where `PORT` is the value you specified in your `.env` file).
@@ -90,12 +85,20 @@ The application will be available at: **`http:```localhost:PORT`** (where `PORT`
 ## 📂 Project Structure
 ```text
 ├── public/          # Static assets (CSS, Client-side JS)
-├── views/           # Template files (EJS/HTML)
-├── routes/          # Express route handlers
-├── models/          # MongoDB/Mongoose schemas
-├── app.js           # Main server entry point
+    ├── css/         # where you can find the style.css
+	└── images/      # the app logos and icons
+├── views/           # Handlebars files (HTML)
+    ├── layouts/     # where you can find the main handlebar wrapper
+    ├── homeSpazzatura.handlebars       # where you can find the handlebar for the homepage
+    ├── inserisciElementi.handlebars    # where you can find the handlebar for the Elements creation
+	└── inserisciGiorni.handlebars      # where you can find the handlebar for the calendar creation
+├── index.js         # Main server entry point
 ├── .env             # Environment variables
-└── package.json     # Project metadata and dependencies
+├── package.json     # Project metadata and dependencies
+├── DBspazzatura.js  #Database handler
+├── Dockerfile       # if needed
+└── docker-compose.yml  # if needed
+
 ```
 
 ## 💻 Technologies Used
