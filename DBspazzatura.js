@@ -96,6 +96,26 @@ class DBspazzatura {
 		return giorno;
 	}
 	
+	async removeOldGiorno() {
+		const oggi = new Date();
+		const mese = oggi.getMonth() + 1;
+		const numeroGiorno = oggi.getDate();
+
+		// Formato MMDD (es. 15 Marzo -> 315)
+		const identificatoreOggi = (mese * 100) + numeroGiorno;
+
+		try {
+			const risultato = await Giorni.deleteMany({
+				giorno: { $lt: identificatoreOggi }
+			});
+
+			return risultato;
+		} catch (err) {
+			console.error("Errore durante l'eliminazione dei giorni passati:", err);
+			throw err;
+		}
+	}
+	
 	async addGiorno(dateInput, elementIdentifier) {
 		let elementId = elementIdentifier;
 

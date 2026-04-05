@@ -1,58 +1,78 @@
-<div class="container mt-4">
-    <h2>Gestione Elementi</h2>
-    <hr>
+<div class="container-custom">
+    <div class="header flex-wrap">
+        <div class="actions">
+            <a href="/paginaGiorni" class="btn-custom-outline">Inserisci Giorni</a>
+            <a href="/" class="btn-custom-neon">Torna alla Home</a>
+        </div>
+    </div>
 
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">Aggiungi Nuovo Elemento</h5>
-            <form id="formNuovoElemento" class="row g-3">
+    <h2 class="text-accent mb-4" style="font-weight: 700; letter-spacing: 1px;">GESTIONE ELEMENTI</h2>
+
+    <div id="oggi-container" class="card-glass mb-5">
+        <div class="card-body p-4">
+            <h5 class="mb-4" style="color: #8892b0; font-weight: 600; text-transform: uppercase; font-size: 1.2rem;">Aggiungi Nuovo Elemento</h5>
+            
+            <form id="formNuovoElemento" class="row g-3 align-items-end">
                 <div class="col-md-4">
-                    <input type="text" id="nome" class="form-control" placeholder="Nome (es: Lavoro)" required>
-                </div>
-                <div class="col-md-3">
-                    <input type="text" id="icona" class="form-control" placeholder="Icona (emoji)" required>
-                </div>
-                <div class="col-md-3">
-                    <input type="color" id="colore" class="form-control form-control-color" value="#007bff">
+                    <label class="form-label text-muted">Nome (es: Plastica)</label>
+                    <input type="text" id="nome" class="form-control-dark" placeholder="Inserisci nome..." required>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-success w-100">Salva</button>
+                    <label class="form-label text-muted">Icona (emoji)</label>
+                    <input type="text" id="icona" class="form-control-dark" placeholder="♻️" required>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-label text-muted">Colore Identificativo</label>
+                    <input type="color" id="colore" class="form-control-dark" style="height: 55px; padding: 5px;" value="#ff3b8a">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn-custom-neon w-100" style="border: none; height: 55px;">
+                        SALVA ELEMENTO
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="table-responsive">
-        <table class="table align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Icona</th>
-                    <th>Nome</th>
-                    <th>Colore</th>
-                    <th class="text-end">Azioni</th>
-                </tr>
-            </thead>
-            <tbody id="tabellaCorpo">
-                {{#each elementi}}
-                <tr id="row-{{this._id}}">
-                    <td style="font-size: 1.5rem;">{{this.icona}}</td>
-                    <td><strong>{{this.name}}</strong></td>
-                    <td>
-                        <span class="badge" style="background-color: {{this.colore}};">{{this.colore}}</span>
-                    </td>
-                    <td class="text-end">
-                        <button class="btn btn-outline-danger btn-sm" onclick="eliminaElemento('{{this._id}}')">
-                            Elimina
-                        </button>
-                    </td>
-                </tr>
-                {{else}}
-                <tr id="messaggio-vuoto">
-                    <td colspan="4" class="text-center text-muted">Nessun elemento presente nel database.</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
+    <div class="card-glass" style="overflow: hidden;">
+        <div class="table-responsive">
+            <table class="table-dark-custom table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Icona</th>
+                        <th>Nome</th>
+                        <th>Codice Colore</th>
+                        <th class="text-end">Azioni</th>
+                    </tr>
+                </thead>
+                <tbody id="tabellaCorpo">
+                    {{#each elementi}}
+                    <tr id="row-{{this._id}}">
+                        <td style="font-size: 2rem;">{{this.icona}}</td>
+                        <td><strong style="font-size: 1.1rem; color: white;">{{this.name}}</strong></td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width: 15px; height: 15px; border-radius: 50%; background-color: {{this.colore}};"></div>
+                                <span style="font-family: monospace; color: #8892b0;">{{this.colore}}</span>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <button class="btn-icon-danger" onclick="eliminaElemento('{{this._id}}')" title="Elimina">
+                                <i class="bi bi-trash"></i> Elimina
+                            </button>
+                        </td>
+                    </tr>
+                    {{else}}
+                    <tr id="messaggio-vuoto">
+                        <td colspan="4" class="text-center py-5" style="color: #556080;">
+                            <span style="font-size: 2rem; display: block;">📂</span>
+                            Nessun elemento presente nel database.
+                        </td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
@@ -65,16 +85,27 @@
             return;
         }
 
-        corpo.innerHTML = listaElementi.map(el => `
-            <tr id="row-${el._id}">
-                <td style="font-size: 1.5rem;">${el.icona}</td>
-                <td><strong>${el.name}</strong></td>
-                <td><span class="badge" style="background-color: ${el.colore};">${el.colore}</span></td>
-                <td class="text-end">
-                    <button class="btn btn-outline-danger btn-sm" onclick="eliminaElemento('${el._id}')">Elimina</button>
-                </td>
-            </tr>
-        `).join('');
+        corpo.innerHTML = listaGiorni.map(giorno => `
+    <tr id="row-${giorno._id}">
+        <td class="cella-data" style="font-weight: bold; color: white; font-size: 1.1rem;" data-raw="${giorno.giorno}">
+            ${giorno.giorno}
+        </td>
+
+        <td>
+            ${giorno.elementi.map(el => `
+                <span style="color: ${el.colore}; font-size: 1.1rem; margin-right: 15px; display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 10px;">
+                    ${el.icona} <strong>${el.name}</strong>
+                </span>
+            `).join('')}
+        </td>
+
+        <td class="text-end">
+            <button class="btn-icon-danger" onclick="eliminaGiorno('${giorno._id}')">
+                <i class="bi bi-trash"></i> Elimina Giorno
+            </button>
+        </td>
+    </tr>
+`).join('');
     }
 
     // Gestione Inserimento

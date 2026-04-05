@@ -1,165 +1,313 @@
-.cs-footer { 
-	text-align: center;  
-	font-size: 10px 
-}
-
-.cols-red {
-	color: red !important;
-}
-
-.cols-black {
-	color: black !important;
-}
-
-.container-custom {
-	width: 70%;
-	max-width: 2400px;
-	margin-right: auto;
-	margin-left: auto;
-	padding-right: 15px;
-	padding-left: 15px;
-}
-
-.full-height-box {
-	height: 98%;
-	display: flex;
-	flex-direction: column;
-}
-
-.sticky-top {
-	top: 20px;
-	z-index: 1000;
-}
-
-.sticky-top-ing {
-	top: 150px;
-	z-index: 1000;
-}
-
-hr.hrB {
-	width: 100%;
-	opacity: 1;
-	border: 0;
-	border-top: 3px solid #17a2b8;
-	margin-left: 0;
-	margin-right: 0;
-}
-
-.draggable-recipe, .badge-recipe {
-	cursor: grab;
-	display: inline-block;
-	transition: transform 0.2s;
-	height: 40px;
-	overflow: hidden;
-}
-
-.draggable-recipe:active, .badge-recipe:active {
-	cursor: grabbing;
-}
-
-.dragging {
-	opacity: 0.5;
-	transform: scale(0.9);
-}
-
-.drop-zone {
-	border: 2 dashed #ccc;
-	min-height: 40px;
-	vertical-align: middle !important;
-	transition: background-color 0.3s;
-}
-
-.recipe-slot {
-	min-height: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.drop-zone.drag-over, .drop-zone[ondragover], drag-over {
-	background-color: #e2f3ff !important;
-	border: 2px #000000 !important;
-}
-
-.ricetta-cena {
-	background-color: #bface9;
-}
-
-.ricetta-pranzo {
-	background-color: #f2c6ed;
-}
-
-.ricetta-unisex {
-	background-color: #9ce8c5;
-}
-
-.intesta {
-	background-color: #a8e2e2;
-}
-
-.ricetta-prova {
-	color: #e4e3a6;
-	font-weight: bold;
-	background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)) !important;
-	background-blend-mode: multiply;
-}
-
-.counter {
-	color: rgba(0, 0, 0, 0.5);
-}
-
-#sidecar {
-	flex-grow: 1;
-	overflow-y: auto;
-	min-height: 200px;
-	border: 1px dashed #ccc;
-	border-radius: 4px;
-	padding: 10px;
-}
-
-.badge-recipe-container {
-	min-height: 45px;
-	border-radius: 8px;
-	overflow: hidden; /* Keeps the handle and link inside rounded corners */
-}
-.drag-handle {
-	background: rgba(0, 0, 0, 0.1); /* Slightly darker left side */
-	border-right: 1px solid rgba(0, 0, 0, 0.1);
-	display: flex;
-	align-items: center;
-	transition: background 0.2s;
-}
-
-	.drag-handle:hover {
-		background: rgba(0, 0, 0, 0.2);
+:root{
+      --bg:#0b1020;
+      --card-radius:40px;
+      --accent:#ff3b8a;
+    }
+    *{box-sizing:border-box}
+    body {
+	  margin: 0;
+	  min-height: 100vh;
+	  background: linear-gradient(180deg, #071024 0%, #071a2a 60%);
+	  color: #e6eef6;
+	  font-family: 'Inter', sans-serif;
+	  padding: 2rem;
+	  display: block; /* Cambiato da flex a block per gestire meglio il container */
 	}
 
-.badge-link:hover {
-	background: rgba(255, 255, 255, 0.1);
-	color: inherit;
-}
-/* Impedisce al link di interferire con il drag quando clicchi sul manico */
-.badge-recipe-container[draggable="true"] {
-	user-select: none;
+	#HUB {
+	  max-width: 400px; /* Impedisce che diventi largo quanto tutto lo schermo */
+	  height: 120px;    /* Ridotto da 160px */
+	  margin-bottom: 2rem;
+	}
+
+	#HUB .texts .label {
+	  font-size: 2rem; /* Ridotto da 3rem */
+	  font-weight: 700;  /* 1500 non esiste, usiamo Bold */
+	  color: #071a2a;
+	  letter-spacing: -1px;
+	}
+
+    .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:5rem;
+      margin-bottom:1.25rem;
+    }
+	
+    .actions { display:flex; gap:.6rem; align-items:center; }
+    .actions .btn{ border-radius:10px; font-weight:600; }
+
+    .grid {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Crea colonne automatiche */
+	  gap: 1.5rem; /* Ridotto da 5rem che era esagerato */
+	  margin-top: 2rem;
+	}
+
+	/* 5. Footer */
+	.cs-footer {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  gap: 10px;
+	  padding: 2rem 0;
+	  color: #556080;
+	}
+	
+	/* Card effetto Vetro per coerenza con il nuovo BG */
+.card-glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: var(--card-radius);
+    color: white;
 }
 
-/* Effetto hover sul link per farlo sembrare cliccabile */
-.badge-text-link:hover {
-	background-color: rgba(255, 255, 255, 0.2);
-	color: inherit;
+/* Colore Accento dalle tue variabili */
+.text-accent {
+    color: var(--accent);
 }
 
-/* Cambia cursore quando afferri il manico */
-.drag-handle:active {
-	cursor: grabbing;
-}
-/* Impedisce il ridimensionamento orizzontale che potrebbe rompere il layout */
-#note-display {
-	resize: vertical;
-	min-height: 100px;
+/* Bottone stile Neon */
+.btn-custom-neon {
+    background: var(--accent);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 59, 138, 0.3);
+    transition: all 0.3s ease;
 }
 
-#note-display {
-	overflow: hidden; /* Nasconde la scrollbar permanente */
-	resize: none; /* Opzionale: toglie l'angolino per il ridimensionamento manuale */
+.btn-custom-neon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 59, 138, 0.5);
+    color: white;
+}
+
+
+/* Responsive fix per Mobile */
+@media (max-width: 768px) {
+    .display-3 { font-size: 2.5rem; }
+    .card-glass { border-radius: 20px; }
+}
+
+/* Input e Select Scuri */
+.form-control-dark {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    color: white !important;
+    padding: 0.8rem 1.2rem;
+    font-size: 1.2rem;
+    font-weight: 500;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.form-control-dark:focus {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--accent);
+    box-shadow: 0 0 15px rgba(255, 59, 138, 0.2);
+    outline: none;
+}
+
+/* Bottone Outline (per il Torna alla Home) */
+.btn-custom-outline {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-custom-outline:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+/* Bottone Ripulisci (Rosso soft) */
+.btn-danger-soft {
+    background: rgba(220, 53, 69, 0.15);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #ff6b6b;
+    padding: 8px 20px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.btn-danger-soft:hover {
+    background: rgba(220, 53, 69, 0.3);
+    color: #ff8e8e;
+}
+
+/* Icona Elimina nella tabella */
+.btn-icon-danger {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 1.2rem;
+    transition: color 0.2s;
+    padding: 5px 15px;
+}
+
+.btn-icon-danger:hover {
+    color: #ff3b3b;
+}
+
+select.form-control-dark option {
+    background-color: #0b1020;
+    color: white;
+}
+	
+.table-dark-custom thead th {
+    background: rgba(255, 255, 255, 0.02);
+	border-bottom: none !important;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    color: #8892b0;
+    text-transform: uppercase;
+}
+
+.table-dark-custom tbody tr {
+    transition: background 0.3s ease;
+	height: 70px;
+}
+
+.table-dark-custom tbody tr:last-child {
+    border-bottom: none !important;
+}
+
+/* Effetto hover più moderno */
+.table-dark-custom tbody tr:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+	
+/* Tabella Dark */
+.table-dark-custom {
+    background: transparent;
+    color: white;
+}
+
+.table-dark-custom th:first-child, 
+.table-dark-custom td:first-child {
+    padding-left: 30px !important;
+}
+
+.table-dark-custom th:last-child, 
+.table-dark-custom td:last-child {
+    padding-right: 30px !important;
+}
+	
+    @media(min-width:700px){
+      .grid{ grid-template-columns:repeat(2,1fr); }
+    }
+
+	.container-custom {
+	  width: 100%;
+	  max-width: 1600px; /* Larghezza ottimale per PC */
+	  margin: 0 auto;    /* Centra il blocco nel browser */
+	  padding: 2rem 0;
+	}
+
+    .card-btn{
+      position:relative;
+      overflow:hidden;
+      display:block;
+      height:160px;
+      border-radius:var(--card-radius);
+      text-decoration:none;
+      color:inherit;
+      background:#359793;
+      box-shadow:0 6px 20px rgba(2,6,23,0.6);
+      transition:transform .16s ease, box-shadow .16s ease;
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .card-btn:hover{ transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.7); }
+
+    .card-media{
+      position:absolute; inset:0; background-size:cover; background-position:center; filter:contrast(0.72) saturate(0.85);
+      transform:scale(1);
+      transition:transform .28s ease;
+    }
+    .card-btn:hover .card-media{ transform:scale(1.06); }
+
+    .card-overlay{
+      position:absolute; inset:0;
+      mix-blend-mode:normal;
+      pointer-events:none;
+    }
+
+    .card-content{
+      position:absolute; left:0; right:0; bottom:0;
+      padding:15px;
+      display:flex;
+      align-items:end;
+      gap:.7rem;
+    }
+
+    .texts{ color:#fff; overflow:hidden; }
+    .texts .label{ font-weight:1500; font-size:3rem; line-height:1; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+    .texts .meta{ font-size:1.6rem; color:rgba(230,238,246,0.8); margin-top:4px; opacity:0.95; white-space:nowrap; text-overflow:ellipsis; overflow:hidden; }
+
+.container-flex {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.text-content {
+  /* Sovrapposizione */
+  margin-left: 2px; 
+  position: relative;
+  z-index: 1;
+  /* Colore di base per il resto del testo */
+  color: white;
+  /* Ombra opzionale per staccare il bianco dall'immagine */
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+/* Si attiva solo su schermi con larghezza inferiore a 768px */
+@media (max-width: 768px) {
+  
+  body {
+    padding: 1rem; /* Riduciamo il padding esterno da 3rem a 1rem per dare più spazio */
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* Mantengo le 2 colonne che volevi */
+    gap: 1rem; /* Ridotto drasticamente da 5rem a 1rem: le card diventano molto più larghe! */
+  }
+
+  .card-btn {
+    height: 160px; /* Ridotto da 260px per proporzionarlo allo schermo piccolo */
+    border-radius: 20px; /* Arrotondamento ridotto (60px era troppo per una card piccola) */
+  }
+
+  .card-content {
+    padding: 12px; /* Meno spazio interno per lasciare respiro ai testi */
+  }
+
+  /* Ridimensionamento testi */
+  .texts .label {
+    font-size: 1.2rem; /* Da 3rem a 1.2rem: ora è leggibile e non sborda */
+    margin-bottom: 2px;
+  }
+
+  .texts .meta {
+    font-size: 0.8rem; /* Da 1.6rem a 0.8rem */
+    margin-top: 2px;
+  }
+}
+
+#oggi-container.card-glass {
+    background: rgba(200, 200, 255, 0.2); /* Sfondo più chiaro */
+    border: 1px solid rgba(255, 255, 255, 0.15); /* Bordo leggermente più evidente */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ombra per dare profondità */
 }

@@ -13,20 +13,54 @@
 	</head> 
 	<body>
 
-		<!-- bootstrap container -->
-		<div class="container-custom">
-		<!-- common header -->
-		<h1 class="display-3">Calendario Spazzatura</h1>
-		<a href="/paginaGiorni" class="btn ricetta-pranzo mb-2">Inserisci Giorni</a>
-		<a href="/paginaElementi" class="btn btn-secondary mb-2">Inserisci tipi Immondizzia</a>
-		<a href="/" class="btn ricetta-pranzo mb-2">Torna alla Home</a>
+	 <div class="container-custom">
+
+		<h1 class="display-3">Spazzatura</h1>
+			
+		<a class="card-btn v2" id="HUB" aria-label="MyHUB" target="_blank">
+			<div class="card-media" style="background-image:url('images/img0.png')"></div>
+			<div class="card-overlay"></div>
+			<div class="card-content">
+			  <div class="texts">
+				<div class="label">HUB</div>
+			  </div>
+			</div>
+		</a>
+
+
+
 	  	<hr />
 
-		{{{body}}}
+    <hr style="border-color: rgba(255,255,255,0.1);" />
 
-		<!-- common footer -->
-		<hr />
-		<div class="cs-footer">Brought to you by <a href="mailto:kumacod3@proton.me" target="_blank">KumaCod3</a><img src="/images/logo.png" height="20px" class="rounded" /></div>
-		</div>
+
+
+    <main>
+        {{{body}}}
+    </main>
+
+    <hr />
+		<div class="cs-footer">Brought to you by <a href="mailto:kumacod3@proton.me" target="_blank">KumaCod3</a><img src="/images/logo.png" height="40px" class="rounded" /></div>
+	  </div>
+		
+		<script>
+		  const porta = 7777;
+
+		  function go() {
+			const host = window.location.hostname;
+			const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+			const pagina = "/pag.html";
+			const url = `${protocol}//${host}:${porta}${pagina}`;
+			const elemento = document.getElementById("HUB");
+			if (elemento) elemento.href = url;
+		  }
+
+		  if (document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", go);
+		  } else {
+			go();
+		  }
+		</script>
+
 	</body> 
 </html>

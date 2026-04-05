@@ -1,15 +1,22 @@
-<div class="container mt-4">
-    <h2>Pianificazione Giornaliera</h2>
-    <p class="text-muted">Associa un elemento a una data specifica.</p>
-    <hr>
+<div class="container-custom">
 
-    <div class="card bg-light mb-4">
-        <div class="card-body">
+    <div class="header flex-wrap">
+        <div class="actions">
+            <a href="/paginaElementi" class="btn-custom-outline">Tipi Immondizia</a>
+            <a href="/" class="btn-custom-neon">Torna alla Home</a>
+        </div>
+    </div>
+	
+    <h2 class="text-accent mb-2" style="font-weight: 700; letter-spacing: 1px;">PIANIFICAZIONE GIORNALIERA</h2>
+    <p style="color: #8892b0; margin-bottom: 2rem;">Associa un elemento a una data specifica del calendario.</p>
+
+    <div id="oggi-container" class="card-glass mb-5">
+        <div class="card-body p-4">
             <form id="formGiorno" class="row g-3 align-items-end">
                 
                 <div class="col-md-3">
-                    <label class="form-label">Mese</label>
-                    <select id="selectMese" class="form-select" required>
+                    <label class="form-label text-muted">Mese</label>
+                    <select id="selectMese" class="form-control-dark" required>
                         <option value="1">Gennaio</option>
                         <option value="2">Febbraio</option>
                         <option value="3">Marzo</option>
@@ -26,13 +33,13 @@
                 </div>
 
                 <div class="col-md-2">
-                    <label class="form-label">Giorno</label>
-                    <input type="number" id="inputGiorno" class="form-control" min="1" max="31" value="1" required>
+                    <label class="form-label text-muted">Giorno</label>
+                    <input type="number" id="inputGiorno" class="form-control-dark" min="1" max="31" value="1" required>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label">Cosa succede in questo giorno?</label>
-                    <select id="selectElemento" class="form-select" required>
+                    <label class="form-label text-muted">Cosa succede in questo giorno?</label>
+                    <select id="selectElemento" class="form-control-dark" required>
                         <option value="" disabled selected>Scegli un elemento...</option>
                         {{#each elementi}}
                             <option value="{{this._id}}">{{this.icona}} {{this.name}}</option>
@@ -41,40 +48,54 @@
                 </div>
 
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-calendar-check"></i> Salva nel Piano
+                    <button type="submit" class="btn-custom-neon w-100" style="border: none; height: 55px;">
+                        SALVA NEL PIANO
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <div class="card">
-        <div class="card-header">Giorni già pianificati</div>
+
+	<div class="mb-5 d-flex justify-content-end">
+		<button class="btn-danger-soft" onclick="eliminaVecchi()">
+			<i class="bi bi-trash3-fill me-2"></i> Ripulisci Storico
+		</button>
+	</div>
+	
+	
+    <div class="px-2"> 
+        <h4 class="text-accent mb-4" style="font-size: 1rem; letter-spacing: 1.5px; text-transform: uppercase;">Giorni già pianificati</h4>
+    </div>
+
+    <div class="card-glass shadow-sm" style="overflow: hidden; border-radius: 20px;">
         <div class="table-responsive">
-            <table class="table align-middle mb-0">
-                <thead class="table-light">
+            <table class="table-dark-custom table align-middle mb-0">
+                <thead>
                     <tr>
                         <th>Data</th>
                         <th>Elementi Associati</th>
+                        <th class="text-end">Azioni</th>
                     </tr>
                 </thead>
                 <tbody id="tabellaGiorniCorpo">
                     {{#each giorni}}
                     <tr>
-                        <td class="cella-data" style="font-size: 1.2rem;" data-raw="{{this.giorno}}">{{this.giorno}}</td>
+                        <td class="cella-data" style="font-weight: bold; color: white; font-size: 1.1rem;" data-raw="{{this.giorno}}">
+                            {{this.giorno}}
+                        </td>
                         <td>
                             {{#each this.elementi}}
-                                <span class="badge rounded-pill" style="font-size: 1.3rem; color: white; background-color: {{this.colore}}; padding: 8px 12px; margin-right: 5px;">
-                                    {{this.icona}} {{this.name}}
+                                <span style="color: {{this.colore}}; font-size: 1.1rem; margin-right: 15px; display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 10px;">
+                                    {{this.icona}} <strong>{{this.name}}</strong>
                                 </span>
                             {{/each}}
                         </td>
-						<td class="text-end">
-							<button class="btn btn-sm btn-outline-danger" onclick="eliminaGiorno('{{this._id}}')">
-								Elimina Giorno
-							</button>
-						</td>
+                        <td class="text-end">
+                            <button class="btn-icon-danger" onclick="eliminaGiorno('{{this._id}}')">
+                                Elimina Giorno
+                            </button>
+                        </td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -98,24 +119,54 @@
     // 2. Funzione per aggiornare la tabella dopo il salvataggio
     function renderizzaTabellaGiorni(lista) {
         const corpo = document.getElementById('tabellaGiorniCorpo');
-        corpo.innerHTML = lista.map(g => `
-            <tr>
-                <td><strong>${formattaDataLeggibile(g.giorno)}</strong></td>
-                <td>
-                    ${g.elementi.map(el => `
-                        <span class="badge rounded-pill" style="font-size: 1.3rem; color: white; background-color: ${el.colore}; padding: 8px 12px; margin-right: 5px;">
-                            ${el.icona} ${el.name}
-                        </span>
-                    `).join('')}
-                </td>
-				<td class="text-end">
-					<button class="btn btn-sm btn-outline-danger" onclick="eliminaGiorno('${g._id}')">
-						Elimina Giorno
-					</button>
-				</td>
-            </tr>
-        `).join('');
+       corpo.innerHTML = lista.map(g => `
+    <tr>
+        <td class="cella-data" style="font-weight: bold; color: white; font-size: 1.1rem;">
+            ${formattaDataLeggibile(g.giorno)}
+        </td>
+        
+        <td>
+            ${g.elementi.map(el => `
+                <span style="color: ${el.colore}; font-size: 1.1rem; margin-right: 15px; display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.03);">
+                    ${el.icona} <strong style="margin-left: 5px;">${el.name}</strong>
+                </span>
+            `).join('')}
+        </td>
+
+        <td class="text-end">
+            <button class="btn-icon-danger" onclick="eliminaGiorno('${g._id}')">
+                <i class="bi bi-trash"></i> Elimina Giorno
+            </button>
+        </td>
+    </tr>
+`).join('');
     }
+	
+	async function eliminaVecchi() {
+			try {
+				const ingrData = {
+					identificatore: 0
+				};
+				const fetchConfigData = {
+					method: "POST",
+					body: JSON.stringify(ingrData),
+					headers: {
+						"Content-Type": "application/json"
+					}
+				};
+
+				const response = await fetch('/DELETEold', fetchConfigData);
+
+				if (response.ok) {
+					const nuoviGiorni = await response.json();
+					if (nuoviGiorni !== "none") {
+						renderizzaTabellaGiorni(nuoviGiorni);
+					}
+				}
+			} catch (err) {
+				alert("Errore nell'eliminazione degli impegni scaduti");
+			}
+		}
 
     // 3. Esegui la formattazione iniziale delle date già presenti al caricamento
     document.querySelectorAll('.cella-data').forEach(td => {

@@ -93,6 +93,16 @@ app.get('/giorno/:id', async (req, res) => {
 	}
 });
 
+app.post('/DELETEold', async (req, res) => { 
+	try {
+		await db.removeOldGiorno();
+		const allGio = await db.getAllGiorni(); 
+		res.json(allGio); 
+	} catch (err) {
+		res.status(500).json({"results": "none"});
+	}
+});
+
 app.post('/DELETETUTTOgiorni', async (req, res) => { 
 	try {
 		await db.removeAllGiorni();
